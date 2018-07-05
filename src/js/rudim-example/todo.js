@@ -7,10 +7,7 @@ export function todo(state) {
 }
 
 function addTodo(todos, textID) {
-    //debugger;
-    //let count = Object.keys(todos).length;
     let text = document.getElementById(textID);
-    //todos[count] = {"text": text.value};
     todos.push({"text": text.value});
     text.value = '';
 }
@@ -25,11 +22,16 @@ export function todoInput(todos) {
         [button, {onclick: () => addTodo(todos, inputId)}, "Add"]];
 }
 
+function removeTodo(todos, index){
+    todos.splice(index, 1);
+}
 
 export function todoItems(todos) {
     let comp = [ul];
-    todos.forEach(element => {
-        comp.push([li, element.text, [button, { "class": "todo-close" }, "X"]]);
+    todos.forEach((element, i) => {
+        comp.push([li, element.text, 
+            [button, { "class": "todo-close",
+                        onclick:()=>removeTodo(todos, i) }, "X"]]);
     });
     return comp;
 }
