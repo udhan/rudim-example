@@ -1,9 +1,11 @@
 import { render, rud, h1, h2, h3, span, div, hr, input, ul, li } from 'rudim';
+import {todo} from './todo';
 
 let appState = rud({title: "Rudim examples",
                     counter: {count: 0},
                     items: [1, 2, 3, 4],
-                    timer: {seconds: 0}});
+                    timer: {seconds: 0},
+                    todo: {items: [{text: "First item"}]}});
 
 function aHeader(state){
     return [h1, {style: 'color: #900'}, state.title]
@@ -19,7 +21,7 @@ function aCounter(counter){
 }
 
 function aList(state){
-    let comp = [ul];
+    let comp = [ul]; 
     state.items.forEach(element => {
         comp.push([li, "Item " + element])
     });
@@ -43,7 +45,9 @@ function app(state){
             [hr],
             [aList, state],
             [hr],
-            [aTimer, state.timer]
+            [aTimer, state.timer],
+            [hr],
+            [todo, state.todo]
         ]
 }
 render([app, appState], document.getElementById('app'));
