@@ -17,7 +17,7 @@ function aCounter(counter){
             [h3, 'count: ', [span, counter.count]],
             [input, {type: 'button',
                      value: 'Increment',
-                     onclick:()=>counter.count++}]]
+                     e:{ type:'click', listener:()=>counter.count++}}]]
 }
 
 function aList(state){

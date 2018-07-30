@@ -1,9 +1,10 @@
-import { ul, button, li, div, input,rud } from 'rudim';
+import { ul, button, li, div, input, h2 } from 'rudim';
 
 export function todo(state) {
     return [div,
-        [todoItems, state.items],
-        [todoInput, state.items]];
+        [h2, 'TODO List'],
+        [todoInput, state.items],
+        [todoItems, state.items]];
 }
 
 function addTodo(todos, textID) {
@@ -18,8 +19,13 @@ export function todoInput(todos) {
         [input, {
             type: 'text',
             id: inputId,
-            placeholder: 'Add new todo...'}],
-        [button, {onclick: () => addTodo(todos, inputId)}, "Add"]];
+            placeholder: 'Add new todo...',
+            e:{type:'keyup', listener:(e)=>{
+                e.preventDefault();
+                if(e.keyCode == 13){
+                    addTodo(todos, inputId);
+                }
+            }}}]];
 }
 
 function removeTodo(todos, index){
@@ -31,7 +37,7 @@ export function todoItems(todos) {
     todos.forEach((element, i) => {
         comp.push([li, element.text, 
             [button, { "class": "todo-close",
-                        onclick:()=>removeTodo(todos, i) }, "X"]]);
+                        e: {type: 'click', listener: ()=>removeTodo(todos, i) }}, "X"]]);
     });
     return comp;
 }
